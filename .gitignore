@@ -1,0 +1,35 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# Ignore node_modules (this prevents unnecessary large files from being uploaded)
+node_modules/
+
+# Ignore system files (Mac-specific)
+.DS_Store
+
+# Ignore environment variables (if used)
+.env
+
+# Ignore build/dist folders (prevents unnecessary compiled files from being uploaded)
+dist/
