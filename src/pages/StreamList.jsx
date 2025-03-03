@@ -1,46 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid"; // Import UUID library
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-function StreamList() {
-  const [movie, setMovie] = useState(""); // State for input
-  const [movies, setMovies] = useState([]); // State for movie list
+const StreamList = () => {
+  const [movie, setMovie] = useState(""); // State for input field
+  const [movies, setMovies] = useState([]); // State to store movie list
   const [editingIndex, setEditingIndex] = useState(null); // Track which movie is being edited
   const [editText, setEditText] = useState(""); // Store edited text
 
-  // Handle form submission
+  // Load saved movies from LocalStorage when the page loads
+  useEffect(() => {
+    const savedMovies = JSON.parse(localStorage.getItem("movies")) || [];
+    setMovies(savedMovies);
+  }, []);
+
+  // Save movies to LocalStorage whenever the list changes
+  useEffect(() => {
+    localStorage.setItem("movies", JSON.stringify(movies));
+  }, [movies]);
+
+  // Handle adding a new movie
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (movie.trim() === "") return;
+    if (movie.trim() === "") return; // Prevent empty input
 
-    setMovies([...movies, { title: movie, completed: false }]); // Add new movie to list
+    // Add a new movie with a UUID for a unique key
+    setMovies([...movies, { id: uuidv4(), title: movie, completed: false }]);
     setMovie(""); // Clear input field
   };
 
-  // Handle movie deletion
-  const handleDelete = (index) => {
-    setMovies(movies.filter((_, i) => i !== index)); // Remove movie from the list
+  // Handle deleting a movie
+  const handleDelete = (id) => {
+    setMovies(movies.filter((m) => m.id !== id));
   };
 
   // Handle marking a movie as completed
-  const handleComplete = (index) => {
+  const handleComplete = (id) => {
     setMovies(
-      movies.map((m, i) =>
-        i === index ? { ...m, completed: !m.completed } : m
+      movies.map((m) =>
+        m.id === id ? { ...m, completed: !m.completed } : m
       )
     );
   };
 
   // Handle editing a movie
-  const handleEdit = (index) => {
-    setEditingIndex(index);
-    setEditText(movies[index].title);
+  const handleEdit = (id) => {
+    setEditingIndex(id);
+    const movieToEdit = movies.find((m) => m.id === id);
+    setEditText(movieToEdit.title);
   };
 
   // Save the edited movie
-  const handleSaveEdit = (index) => {
+  const handleSaveEdit = (id) => {
     setMovies(
-      movies.map((m, i) => (i === index ? { ...m, title: editText } : m))
+      movies.map((m) => (m.id === id ? { ...m, title: editText } : m))
     );
     setEditingIndex(null);
     setEditText("");
@@ -50,9 +64,9 @@ function StreamList() {
     <div className="container">
       <h1>StreamList</h1>
       <p style={{ textAlign: "center", color: "#666" }}>
-        Add movies to your watchlist.
+        Add movies to your watchlist. Your list is saved automatically.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="movie-form">
         <input
           type="text"
           placeholder="Enter movie name"
@@ -64,35 +78,35 @@ function StreamList() {
 
       {/* Display the list of movies */}
       {movies.length > 0 && <h2>Your Movies</h2>}
-      <ul>
-        {movies.map((m, index) => (
-          <li key={index} className={m.completed ? "completed" : ""}>
-            {editingIndex === index ? (
+      <ul className="movie-list">
+        {movies.map((m) => (
+          <li key={m.id} className={`movie-item ${m.completed ? "completed" : ""}`}>
+            {editingIndex === m.id ? (
               <>
                 <input
                   type="text"
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                 />
-                <button onClick={() => handleSaveEdit(index)}>Save</button>
+                <button onClick={() => handleSaveEdit(m.id)}>Save</button>
               </>
             ) : (
               <>
-                <span>{m.title}</span>
+                <span className="movie-title">{m.title}</span>
                 <div className="icons">
                   <FontAwesomeIcon
                     icon={faCheckCircle}
-                    onClick={() => handleComplete(index)}
-                    className={m.completed ? "completed-icon" : "icon"}
+                    onClick={() => handleComplete(m.id)}
+                    className={`icon ${m.completed ? "completed-icon" : ""}`}
                   />
                   <FontAwesomeIcon
                     icon={faEdit}
-                    onClick={() => handleEdit(index)}
+                    onClick={() => handleEdit(m.id)}
                     className="icon"
                   />
                   <FontAwesomeIcon
                     icon={faTrash}
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(m.id)}
                     className="icon delete-icon"
                   />
                 </div>
@@ -103,6 +117,6 @@ function StreamList() {
       </ul>
     </div>
   );
-}
+};
 
 export default StreamList;

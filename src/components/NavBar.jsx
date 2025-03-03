@@ -11,6 +11,7 @@ function Navbar() {
         <li><Link to="/movies">Movies</Link></li>
         <li><Link to="/cart">Cart</Link></li>
         <li><Link to="/about">About</Link></li>
+        <li><Link to="/search">Movie Search</Link></li> {/* Added Search Page */}
       </ul>
     </nav>
   );
