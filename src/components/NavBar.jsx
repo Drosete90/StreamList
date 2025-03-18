@@ -1,20 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css"; // Import styles for Navbar
+import "./Navbar.css"; // Ensure this file exists
 
-function Navbar() {
+const NavBar = () => {
   return (
     <nav className="navbar">
-      <h2>StreamList</h2>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/movies">Movies</Link></li>
-        <li><Link to="/cart">Cart</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/search">Movie Search</Link></li> {/* Added Search Page */}
-      </ul>
+      <Link to="/">Home</Link>
+      <Link to="/movies">Movies</Link>
+      <Link to="/cart">Cart</Link>
+      <Link to="/about">About</Link>
+      <Link to="/search">Movie Search</Link>
     </nav>
   );
-}
+};
 
-export default Navbar;
+export default NavBar;

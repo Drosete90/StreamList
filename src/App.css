@@ -1,148 +1,125 @@
-/* Apple-Inspired Minimalist Design */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/* Global Reset */
+* {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f7; /* Light gray background */
-  color: #1d1d1f; /* Dark Apple text color */
-  text-align: center;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
-/* Container for main content */
-.container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-/* Heading styles */
-h1 {
-  font-size: 28px;
-  font-weight: 600;
-}
-
-/* Form styling */
-form {
+/* Make the entire page flex-centered */
+body, html {
+  background-color: #121212; /* Dark mode */
+  color: white;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-input {
-  width: calc(100% - 24px);
-  max-width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #d1d1d6;
-  border-radius: 8px;
-  text-align: center;
-  transition: border 0.3s ease-in-out;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-input:focus {
-  border: 1px solid #0071e3;
-  outline: none;
-}
-
-/* Button */
-button {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   width: 100%;
-  background-color: #0071e3;
+}
+
+/* Ensures everything centers properly */
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Main App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 600px;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+  text-align: center;
+  margin-top: 80px; /* Ensures navbar doesn't overlap */
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  background-color: #333;
+  padding: 15px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navbar a {
   color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #00c3ff;
+}
+
+/* Centering Form */
+.movie-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.movie-form input {
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
-  font-size: 14px;
-  font-weight: 500;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.movie-form button {
+  width: 150px;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  font-size: 16px;
+  transition: 0.3s;
 }
 
-button:hover {
-  background-color: #005bb5;
+.movie-form button:hover {
+  background: #0056b3;
 }
 
-/* Movie List Styling */
-ul {
+/* Movie List */
+.movie-list {
   list-style: none;
   padding: 0;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-li {
-  background: white;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #d1d1d6;
-  margin-bottom: 8px;
-  font-size: 16px;
+.movie-item {
+  background: #333;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Movie list text */
-li span {
-  flex-grow: 1;
-  text-align: left;
-  padding-left: 10px;
-}
-
-/* Icons styling */
-.icons {
-  display: flex;
-  gap: 10px;
-}
-
-.icon {
-  cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.icon:hover {
-  color: #005bb5;
-}
-
-/* Trash icon (Delete) */
-.delete-icon {
-  color: red;
-}
-
-.delete-icon:hover {
-  color: darkred;
-}
-
-/* Checkmark icon (Completed) */
-.completed-icon {
-  color: green;
-}
-
-.completed-icon:hover {
-  color: darkgreen;
-}
-
-/* Strikethrough effect for completed movies */
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
-
-/* Editing mode styling */
-input.edit-input {
-  width: calc(100% - 24px);
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #d1d1d6;
-  text-align: center;
 }

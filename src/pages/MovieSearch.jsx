@@ -4,7 +4,7 @@ import axios from "axios";
 const MovieSearch = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const API_KEY = "ef67a17aa4199b26bebbfbd94385f7ea"; // Your TMDB API key
+  const API_KEY = "ef67a17aa4199b26bebbfbd94385f7ea"; // My TMDB API key
 
   const searchMovies = async (e) => {
     e.preventDefault();
